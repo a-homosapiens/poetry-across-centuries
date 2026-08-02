@@ -169,33 +169,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .controls { display: flex; align-items: center; gap: .6rem; }
 
-/* Segmented Student / Teacher toggle */
-.segmented {
-  display: inline-flex; align-items: center;
-  background: var(--paper-sunk);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 3px;
-  gap: 2px;
+/* Student / Teacher edition toggle — single icon-btn, letter monogram */
+.icon-btn .edition-s, .icon-btn .edition-t {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--claret);
 }
-.segmented button {
-  font-family: var(--font-ui); font-weight: 600; font-size: .78rem; letter-spacing: .04em;
-  border: 0; background: transparent; color: var(--ink-soft);
-  padding: .34rem .8rem; border-radius: 999px; cursor: pointer;
-  display: inline-flex; align-items: center; gap: .35rem;
-  transition: color .25s ease, background .25s ease;
-}
-.segmented button .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .45; }
-.segmented button[aria-pressed="true"] {
-  background: var(--claret); color: #F7F1E9;
-  box-shadow: 0 1px 6px -1px rgba(140,47,57,.5);
-}
-.segmented button[aria-pressed="true"] .dot { opacity: 1; background: var(--brass); }
-
-@media (max-width: 640px) {
-  /* Show only the active edition; tapping it toggles to the other one */
-  .segmented button[aria-pressed="false"] { display: none; }
-}
+.icon-btn .edition-t { display: none; }
+body.mode-teacher .icon-btn .edition-s { display: none; }
+body.mode-teacher .icon-btn .edition-t { display: inline; }
 
 .icon-btn {
   width: 40px; height: 38px; display: inline-grid; place-items: center;
@@ -458,6 +438,13 @@ section.block + section.block { border-top: 1px solid var(--line-soft); }
 .q-list .listen {
   display: block; margin-top: .3rem; font-size: .95rem; color: var(--ink-soft);
   padding-left: .9rem; border-left: 2px solid var(--brass);
+}
+
+@media (max-width: 600px) {
+  /* Drop the reserved number gutter — number sits inline, flush left,
+     so question text gets the full width instead of a hanging indent. */
+  .q-list > li { padding-left: 0; }
+  .q-list > li::before { position: static; display: inline; margin-right: .4rem; }
 }
 .q-list .listen b { font-family: var(--font-ui); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); font-weight: 700; margin-right: .4rem; }
 
