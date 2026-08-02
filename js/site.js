@@ -10,7 +10,14 @@
     body.classList.remove("mode-student", "mode-teacher");
     body.classList.add(mode === "teacher" ? "mode-teacher" : "mode-student");
     document.querySelectorAll("[data-mode-btn]").forEach(function (btn) {
-      btn.setAttribute("aria-pressed", String(btn.getAttribute("data-mode-btn") === mode));
+      var btnMode = btn.getAttribute("data-mode-btn");
+      var isCurrent = btnMode === mode;
+      btn.setAttribute("aria-pressed", String(isCurrent));
+      /* Title always describes the mode a click will land on: the other
+         mode if this button is the active one (mobile shows only this
+         button), or this button's own mode if it's the inactive one. */
+      var resultMode = isCurrent ? (mode === "teacher" ? "student" : "teacher") : btnMode;
+      btn.title = "Switch to " + (resultMode === "teacher" ? "Teacher" : "Student") + " Mode";
     });
     try { localStorage.setItem("cxc-mode", mode); } catch (e) {}
   }
@@ -21,7 +28,12 @@
 
   document.querySelectorAll("[data-mode-btn]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      applyMode(btn.getAttribute("data-mode-btn"));
+      var target = btn.getAttribute("data-mode-btn");
+      var current = body.classList.contains("mode-teacher") ? "teacher" : "student";
+      /* On mobile only the active button is visible, so clicking it
+         must toggle to the other mode rather than re-apply itself. */
+      if (target === current) target = target === "teacher" ? "student" : "teacher";
+      applyMode(target);
     });
   });
 

@@ -130,7 +130,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   color: var(--claret);
   font-size: 1.5rem;
   line-height: 1;
-  margin: var(--s-6) 0;
+  margin-top: var(--s-6);
+  margin-bottom: var(--s-3);
   letter-spacing: .4em;
   user-select: none;
 }
@@ -192,8 +193,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .segmented button[aria-pressed="true"] .dot { opacity: 1; background: var(--brass); }
 
 @media (max-width: 640px) {
-  /* Show only the inactive edition as a single tap-to-switch button */
-  .segmented button[aria-pressed="true"] { display: none; }
+  /* Show only the active edition; tapping it toggles to the other one */
+  .segmented button[aria-pressed="false"] { display: none; }
 }
 
 .icon-btn {
@@ -500,6 +501,12 @@ section.block + section.block { border-top: 1px solid var(--line-soft); }
 .module-nav a.next { text-align: right; align-items: flex-end; margin-left: auto; }
 .module-nav .dir { font-family: var(--font-ui); font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--claret); font-weight: 700; }
 .module-nav .ttl { font-family: var(--font-display); font-size: 1.25rem; margin-top: .2rem; }
+
+@media (max-width: 600px) {
+  .module-nav { flex-direction: column; }
+  .module-nav a { min-width: 0; width: 100%; }
+  .module-nav a.next { text-align: left; align-items: flex-start; margin-left: 0; }
+}
 
 /* ============================================================
    POET BIO PAGES
